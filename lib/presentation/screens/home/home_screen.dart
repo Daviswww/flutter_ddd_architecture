@@ -8,15 +8,22 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        actions: [
-          SwtichModeButton(),
-        ],
-      ),
-      body: Center(
-        child: Text(
-          "Hello",
-          style: Theme.of(context).textTheme.bodyText1,
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Positioned(
+              top: 30,
+              right: 20,
+              child: SwtichModeButton(),
+            ),
+            Text(
+              "Hello",
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ],
         ),
       ),
     );

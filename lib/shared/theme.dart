@@ -3,13 +3,9 @@ import 'package:stunning_tribble/shared/colors.dart';
 
 class AppThemeData {
   static ThemeData darkMode = ThemeData(
-    appBarTheme: AppBarTheme(
-      shadowColor: Colors.transparent,
-    ),
     brightness: Brightness.dark,
     backgroundColor: oil6Color,
-    primaryColor: oil6Color,
-    primaryColorDark: oil3Color,
+    primaryColorDark: oil2Color,
     primaryColorLight: oil5Color,
     textTheme: TextTheme(
       bodyText1: TextStyle(
@@ -21,18 +17,14 @@ class AppThemeData {
   );
 
   static ThemeData lightMode = ThemeData(
-    appBarTheme: AppBarTheme(
-      shadowColor: Colors.transparent,
-    ),
     brightness: Brightness.light,
     backgroundColor: oil2Color,
-    primaryColor: oil2Color,
-    primaryColorDark: oil4Color,
+    primaryColorDark: oil2Color,
     primaryColorLight: oil5Color,
     textTheme: TextTheme(
       bodyText1: TextStyle(
         fontSize: 80.0,
-        color: oil1Color,
+        color: oil5Color,
         fontWeight: FontWeight.bold,
       ),
     ),

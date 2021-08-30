@@ -10,11 +10,11 @@ class SwtichModeButton extends StatelessWidget {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, state) {
         return Switch(
-          activeTrackColor: Theme.of(context).primaryColorLight,
+          inactiveThumbColor: Theme.of(context).primaryColorLight,
           activeColor: Theme.of(context).primaryColorDark,
           value: state.isDark,
-          onChanged: (state) {
-            BlocProvider.of<ThemeBloc>(context).add(ThemeChange(state));
+          onChanged: (isDark) {
+            BlocProvider.of<ThemeBloc>(context).add(ThemeChange(isDark));
           },
         );
       },
