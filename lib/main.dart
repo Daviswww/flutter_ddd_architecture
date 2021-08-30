@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stunning_tribble/application/theme/theme_bloc.dart';
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: state.themeData,
           darkTheme: ThemeData(),
-          home: Home(),
+          home: HomeScreen(),
         );
       },
     );
