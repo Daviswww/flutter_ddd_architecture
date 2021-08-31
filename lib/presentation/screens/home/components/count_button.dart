@@ -75,4 +75,10 @@ class _CountButtonState extends State<CountButton>
       },
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _animationController.dispose();
+  }
 }
