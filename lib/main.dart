@@ -18,10 +18,10 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<ThemeBloc>(
+        BlocProvider(
           create: (context) => ThemeBloc(),
         ),
-        BlocProvider<AuthenticationBloc>(
+        BlocProvider(
           create: (context) => AuthenticationBloc(
             authRepository: authRepository,
           )..add(AppStarted()),
