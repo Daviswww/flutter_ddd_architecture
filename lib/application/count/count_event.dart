@@ -7,10 +7,10 @@ abstract class CountEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class IncrementEvent extends CountEvent {
+class CountIncrementEvent extends CountEvent {
   final int count;
 
-  const IncrementEvent(this.count);
+  const CountIncrementEvent(this.count);
 
   @override
   List<Object> get props => [count];

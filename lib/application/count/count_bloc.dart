@@ -12,13 +12,13 @@ class CountBloc extends Bloc<CountEvent, CountState> {
   CountRepository _countRepository;
   CountBloc({required CountRepository countRepository})
       : _countRepository = countRepository,
-        super(CountInitial());
+        super(CountStateInitial(count: 0));
 
   @override
   Stream<CountState> mapEventToState(
     CountEvent event,
   ) async* {
-    if (event is IncrementEvent) {
+    if (event is CountIncrementEvent) {
       yield* _mapIncrementToState(event.count);
     }
   }
@@ -28,10 +28,10 @@ class CountBloc extends Bloc<CountEvent, CountState> {
     yield* increment.fold(
       (countFailure) async* {
         log("$countFailure");
-        yield CountFailure();
+        yield CountStateFailure(0);
       },
       (count) async* {
-        yield CountSuccess(count);
+        yield CountStateSuccess(count: count);
       },
     );
   }

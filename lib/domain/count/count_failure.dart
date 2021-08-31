@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-class CountAddFailure extends Equatable {
+class CountFailure extends Equatable {
   final String message;
 
-  CountAddFailure({required this.message});
+  CountFailure({required this.message});
 
   @override
   List<Object> get props => [message];

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stunning_tribble/application/authentication/authentication_bloc.dart';
+import 'package:stunning_tribble/application/count/count_bloc.dart';
+import 'package:stunning_tribble/infrastructure/count/count_repository.dart';
+import 'package:stunning_tribble/presentation/screens/home/components/count_button.dart';
 import 'package:stunning_tribble/presentation/screens/home/components/sign_out_button.dart';
 import 'package:stunning_tribble/presentation/screens/home/components/switch_mode_button.dart';
 import 'package:stunning_tribble/presentation/router/router.gr.dart';
@@ -27,6 +30,12 @@ class HomeScreen extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
+              BlocProvider(
+                create: (context) => CountBloc(
+                  countRepository: CountRepository(),
+                ),
+                child: CountButton(),
+              ),
               Positioned(
                 top: 30,
                 left: 20,
@@ -36,10 +45,6 @@ class HomeScreen extends StatelessWidget {
                 top: 30,
                 right: 20,
                 child: SwtichModeButton(),
-              ),
-              Text(
-                "Hello",
-                style: Theme.of(context).textTheme.bodyText1,
               ),
             ],
           ),

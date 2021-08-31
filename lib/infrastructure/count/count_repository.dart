@@ -6,16 +6,16 @@ abstract class CountRepositoryImp {
   /// Count model
   ///
   /// Increment one
-  Future<Either<CountAddFailure, int>> increment(int count);
+  Future<Either<CountFailure, int>> increment(int count);
 }
 
 class CountRepository implements CountRepositoryImp {
   @override
-  Future<Either<CountAddFailure, int>> increment(count) async {
+  Future<Either<CountFailure, int>> increment(count) async {
     try {
       return right(++count);
     } catch (e) {
-      return left(CountAddFailure(message: "$e"));
+      return left(CountFailure(message: "$e"));
     }
   }
 }
