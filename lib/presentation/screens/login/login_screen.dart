@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stunning_tribble/application/authentication/authentication_bloc.dart';
-import 'package:stunning_tribble/presentation/screens/home/components/sign_out_button.dart';
-import 'package:stunning_tribble/presentation/screens/home/components/switch_mode_button.dart';
+import 'package:stunning_tribble/application/sign_in/sign_in_bloc.dart';
+import 'package:stunning_tribble/infrastructure/auth/auth_repository.dart';
 import 'package:stunning_tribble/presentation/router/router.gr.dart';
+import 'package:stunning_tribble/presentation/screens/login/components/login_form.dart';
 import 'package:auto_route/auto_route.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
-        if (state is Unauthenticated) {
-          context.replaceRoute(LoginScreen());
+        if (state is Authenticated) {
+          context.replaceRoute(HomeScreen());
         }
       },
       child: Scaffold(
@@ -28,18 +27,19 @@ class HomeScreen extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               Positioned(
-                top: 30,
-                left: 20,
-                child: SignOutButton(),
+                top: 200,
+                child: Text(
+                  "Hello",
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
               ),
               Positioned(
-                top: 30,
-                right: 20,
-                child: SwtichModeButton(),
-              ),
-              Text(
-                "Hello",
-                style: Theme.of(context).textTheme.bodyText1,
+                top: 370,
+                child: BlocProvider(
+                  create: (context) =>
+                      SignInBloc(authRepository: AuthRepository()),
+                  child: LoginFrom(),
+                ),
               ),
             ],
           ),

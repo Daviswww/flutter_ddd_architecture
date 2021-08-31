@@ -1,19 +1,30 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stunning_tribble/application/authentication/authentication_bloc.dart';
 import 'package:stunning_tribble/application/theme/theme_bloc.dart';
 import 'package:stunning_tribble/config/config_reader.dart';
 import 'package:stunning_tribble/config/environment.dart';
+import 'package:stunning_tribble/infrastructure/auth/auth_repository.dart';
 import 'package:stunning_tribble/presentation/router/router.gr.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ConfigReader.initializeApp(Environment.dev);
+  await Firebase.initializeApp();
+
   final AppRouter appRouter = AppRouter();
+  final AuthRepository authRepository = AuthRepository();
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
+        BlocProvider<ThemeBloc>(
           create: (context) => ThemeBloc(),
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (context) => AuthenticationBloc(
+            authRepository: authRepository,
+          )..add(AppStarted()),
         ),
       ],
       child: MyApp(

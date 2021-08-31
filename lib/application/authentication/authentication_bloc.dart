@@ -10,11 +10,11 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final AuthRepository _userRepository;
+  final AuthRepository _authRepository;
 
   AuthenticationBloc({
-    required AuthRepository userRepository,
-  })  : _userRepository = userRepository,
+    required AuthRepository authRepository,
+  })  : _authRepository = authRepository,
         super(AuthenticationInitial());
 
   @override
@@ -31,7 +31,7 @@ class AuthenticationBloc
   }
 
   Stream<AuthenticationState> _mapAppStartedToState() async* {
-    final isSignedIn = await _userRepository.isSignedIn();
+    final isSignedIn = await _authRepository.isSignedIn();
     yield* isSignedIn.fold(
       (failure) async* {
         log("$failure");
@@ -44,7 +44,7 @@ class AuthenticationBloc
   }
 
   Stream<AuthenticationState> _mapLoggedInToState() async* {
-    final user = await _userRepository.getUser();
+    final user = await _authRepository.getUser();
     yield* user.fold(
       (failure) async* {
         log("$failure");
@@ -57,13 +57,13 @@ class AuthenticationBloc
   }
 
   Stream<AuthenticationState> _mapLoggedOutToState() async* {
-    final signOut = await _userRepository.signOut();
+    final signOut = await _authRepository.signOut();
     yield* signOut.fold(
       (failure) async* {
         log("$failure");
         yield Unauthenticated();
       },
-      (r) async* {
+      (success) async* {
         yield Unauthenticated();
       },
     );

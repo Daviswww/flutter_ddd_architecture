@@ -10,9 +10,9 @@ abstract class AuthFailure extends Equatable {
 }
 
 class GoogleAuthServerFailure extends AuthFailure {
-  GoogleAuthServerFailure({required String message}) : super(message: "");
+  GoogleAuthServerFailure({required String message}) : super(message: message);
 }
 
 class FirebaseAuthFailure extends AuthFailure {
-  FirebaseAuthFailure({required String message}) : super(message: "");
+  FirebaseAuthFailure({required String message}) : super(message: message);
 }

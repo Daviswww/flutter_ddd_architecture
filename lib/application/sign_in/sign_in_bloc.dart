@@ -9,11 +9,11 @@ part 'sign_in_event.dart';
 part 'sign_in_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
-  final AuthRepository _userRepository;
+  final AuthRepository _authRepository;
 
   SignInBloc({
-    required AuthRepository userRepository,
-  })  : _userRepository = userRepository,
+    required AuthRepository authRepository,
+  })  : _authRepository = authRepository,
         super(SignInStateInitial());
 
   @override
@@ -26,7 +26,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   }
 
   Stream<SignInState> _mapLoginWithGooglePressedToState() async* {
-    final user = await _userRepository.signInWithGoogle();
+    final user = await _authRepository.signInWithGoogle();
     yield* user.fold(
       (failure) async* {
         log("$failure");

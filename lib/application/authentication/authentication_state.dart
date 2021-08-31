@@ -19,5 +19,3 @@ class Authenticated extends AuthenticationState {
 }
 
 class Unauthenticated extends AuthenticationState {}
-
-class Uninitialized extends AuthenticationState {}
