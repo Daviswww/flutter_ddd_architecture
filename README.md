@@ -1,19 +1,47 @@
-# stunning_tribble
 
-Flutter DDD(Domain Driven Design) architecture example.
+# Day27 Infrastructure Click Game
+寫到這邊時不知道大家都已經非常熟練了，這次我們要來做一個有趣的小遊戲，就是點一下螢幕數字就會加一，是不是很有趣呢？
 
-## Getting Started Branch
+## Repository & Domain
+即便是一個小小的程式還是要照著流程走。
 
-- Day18 Environment
-- Day19 Shared
-- Day20 Infrastructure auth
-- Day21 Domain error handle
-- Day22 Application login
-- Day23 Application auth
-- Day24 Presentation login & home
-- Day25 Infrastructure click game
-- Day26 Presentation Tabbar
-- Day27 Application click game
-- Day28 Presentation click game
-- Day29 Flutter icons
-- Day30 Bulid apk & ipk
+```dart
+import 'package:equatable/equatable.dart';
+
+class CountAddFailure extends Equatable {
+  final String message;
+
+  CountAddFailure({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+```
+
+```dart
+import 'package:dartz/dartz.dart';
+import 'package:stunning_tribble/domain/count/count_failure.dart';
+
+abstract class CountRepositoryImp {
+  /// Count model
+  ///
+  /// Increment one
+  Future<Either<CountAddFailure, int>> increment(int count);
+}
+
+class CountRepository implements CountRepositoryImp {
+  @override
+  Future<Either<CountAddFailure, int>> increment(count) async {
+    try {
+      return right(++count);
+    } catch (e) {
+      return left(CountAddFailure(message: "$e"));
+    }
+  }
+}
+```
+
+
+## Note:
+應該滿有趣的吧～
