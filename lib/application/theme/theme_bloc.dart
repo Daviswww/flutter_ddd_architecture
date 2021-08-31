@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:stunning_tribble/shared/theme.dart';
+import 'package:stunning_tribble/infrastructure/theme/theme.dart';
 
 part 'theme_event.dart';
 part 'theme_state.dart';
