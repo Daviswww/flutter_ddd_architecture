@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stunning_tribble/config/config_reader.dart';
 import 'package:stunning_tribble/config/environment.dart';
+import 'package:stunning_tribble/shared/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +29,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: oil2Color,
       body: Center(
         child: Text("Hello"),
       ),
