@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Mark: Colors
-
 const Color oil1Color = Color(0xFFFBF5EF);
 const Color oil2Color = Color(0xFFF2D3AB);
 
