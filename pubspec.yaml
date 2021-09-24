@@ -23,9 +23,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  bloc: ^7.1.0
-  flutter_bloc: ^7.1.0
-  provider: ^5.0.0
+  bloc: ^7.2.0
+  flutter_bloc: ^7.3.0
+  provider: ^6.0.0
   equatable: ^2.0.3
   auto_route: ^2.3.0
   google_sign_in: ^5.0.5
