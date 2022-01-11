@@ -63,3 +63,6 @@
 本次專案會頻繁的使用 Bloc 套件請大家熟悉。
 
 程式碼就跟泥巴球一樣只會越滾越大，乾淨的程式可以降低維護成本。
+
+### 基本觀念
+https://github.com/Daviswww/triathlon_flutter

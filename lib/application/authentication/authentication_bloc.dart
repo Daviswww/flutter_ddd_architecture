@@ -15,56 +15,67 @@ class AuthenticationBloc
   AuthenticationBloc({
     required AuthRepository authRepository,
   })  : _authRepository = authRepository,
-        super(AuthenticationInitial());
+        super(AuthenticationInitial()) {
+    on<AppStarted>((event, emit) async {
+      log("AppStarted");
+      final isSignedIn = await _authRepository.isSignedIn();
+      await isSignedIn.fold(
+        (failure) async {
+          log("$failure");
+          emit(Unauthenticated());
+        },
+        (isSignedInSuccess) async {
+          log("isSignedInSuccess");
+          await _mapLoggedInToState(emit);
+        },
+      );
+    });
 
-  @override
-  Stream<AuthenticationState> mapEventToState(
-    AuthenticationEvent event,
-  ) async* {
-    if (event is AppStarted) {
-      yield* _mapAppStartedToState();
-    } else if (event is LoggedIn) {
-      yield* _mapLoggedInToState();
-    } else if (event is LoggedOut) {
-      yield* _mapLoggedOutToState();
-    }
+    on<LoggedIn>((event, emit) async {
+      await _mapLoggedInToState(emit);
+    });
+
+    on<LoggedOut>((event, emit) async {
+      await _mapLoggedOutToState(emit);
+    });
   }
 
-  Stream<AuthenticationState> _mapAppStartedToState() async* {
+  Future<void> _mapAppStartedToState(Emitter<AuthenticationState> emit) async {
     final isSignedIn = await _authRepository.isSignedIn();
-    yield* isSignedIn.fold(
-      (failure) async* {
+    await isSignedIn.fold(
+      (failure) async {
         log("$failure");
-        yield Unauthenticated();
+        emit(Unauthenticated());
       },
-      (isSignedInSuccess) async* {
-        yield* _mapLoggedInToState();
+      (isSignedInSuccess) async {
+        log("isSignedInSuccess");
+        await _mapLoggedInToState(emit);
       },
     );
   }
 
-  Stream<AuthenticationState> _mapLoggedInToState() async* {
+  Future<void> _mapLoggedInToState(Emitter<AuthenticationState> emit) async {
     final user = await _authRepository.getUser();
-    yield* user.fold(
-      (failure) async* {
+    await user.fold(
+      (failure) async {
         log("$failure");
-        yield Unauthenticated();
+        emit(Unauthenticated());
       },
-      (user) async* {
-        yield Authenticated(user.displayName.toString());
+      (user) async {
+        emit(Authenticated(user.displayName.toString()));
       },
     );
   }
 
-  Stream<AuthenticationState> _mapLoggedOutToState() async* {
+  Future<void> _mapLoggedOutToState(Emitter<AuthenticationState> emit) async {
     final signOut = await _authRepository.signOut();
-    yield* signOut.fold(
-      (failure) async* {
+    await signOut.fold(
+      (failure) async {
         log("$failure");
-        yield Unauthenticated();
+        emit(Unauthenticated());
       },
-      (success) async* {
-        yield Unauthenticated();
+      (success) async {
+        emit(Unauthenticated());
       },
     );
   }
